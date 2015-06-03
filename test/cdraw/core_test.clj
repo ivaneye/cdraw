@@ -1,6 +1,6 @@
 (ns cdraw.core-test
   (:require [clojure.test :refer :all]
-            [cdraw.core :refer :all]))
+            [cdraw.uml :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."
