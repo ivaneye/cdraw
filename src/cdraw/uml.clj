@@ -26,44 +26,40 @@
   (if r (str "[headlabel=\" " (:head (first r)) "\",taillabel=\"" (:tail (first r)) "\"]") ""))
 
 ;定义类之间的
-(defmacro defrelation [name c1 type c2 & rest]
+(defmacro defrelation [c1 type c2 & rest]
   (case type
     ;has a,关联
-    :u `(do (def ~name (str "edge[arrowhead=\"vee\", style=\"filled\"]\n" '~c1 "->" '~c2 (_msg ~@rest) "\n\n"))
-            (add-to-node ~name))
+    :u `(add-to-node (str "edge[arrowhead=\"vee\", style=\"filled\"]\n" '~c1 "->" '~c2 (_msg ~@rest) "\n\n"))
     ;依赖
-    :d `(do (def ~name (str "edge[arrowhead=\"vee\", style=\"dotted\"]\n" '~c1 "->" '~c2 (_msg ~@rest) "\n\n"))
-            (add-to-node ~name))
+    :d `(add-to-node (str "edge[arrowhead=\"vee\", style=\"dotted\"]\n" '~c1 "->" '~c2 (_msg ~@rest) "\n\n"))
     ;聚合
-    :p `(do (def ~name (str "edge[arrowhead=\"odiamond\", style=\"filled\"]\n" '~c2 "->" '~c1 (_msg ~@rest) "\n\n"))
-            (add-to-node ~name))
+    :p `(add-to-node (str "edge[arrowhead=\"odiamond\", style=\"filled\"]\n" '~c2 "->" '~c1 (_msg ~@rest) "\n\n"))
     ;组合
-    :c `(do (def ~name (str "edge[arrowhead=\"diamond\", style=\"filled\"]\n" '~c2 "->" '~c1 (_msg ~@rest) "\n\n"))
-            (add-to-node ~name))
+    :c `(add-to-node (str "edge[arrowhead=\"diamond\", style=\"filled\"]\n" '~c2 "->" '~c1 (_msg ~@rest) "\n\n"))
     ;继承
-    :e `(do (def ~name (str "edge[arrowhead=\"onormal\", style=\"filled\"]\n" '~c1 "->" '~c2 (_msg ~@rest) "\n\n"))
-            (add-to-node ~name))
+    :e `(add-to-node (str "edge[arrowhead=\"onormal\", style=\"filled\"]\n" '~c1 "->" '~c2 (_msg ~@rest) "\n\n"))
     ;实现
-    :i `(do (def ~name (str "edge[arrowhead=\"onormal\", style=\"dotted\"]\n" '~c1 "->" '~c2 (_msg ~@rest) "\n\n"))
-            (add-to-node ~name))
+    :i `(add-to-node (str "edge[arrowhead=\"onormal\", style=\"dotted\"]\n" '~c1 "->" '~c2 (_msg ~@rest) "\n\n"))
     )
   )
 
-;定义子包
-(defmacro defsub [name & rest]
-  `(do (def ~name (str "subgraph " '~name " {" ~@rest "}"))
-       (add-to-node ~name)))
+;定义子包,name必须以cluster开头
+(defmacro defsub [label & rest]
+  (let [t (rand)
+        s (str/replace (str t) "." "")]
+  `(add-to-node (str "subgraph cluster" ~s " {label=\"" '~label "\"\nbgcolor=\"mintcream\";\n" ~@rest "}"))))
 
 ;定义label
 (defmacro label [node msg]
-  (let [t (rand)]
-    `(add-to-node (str ~t "[style=\"filled\",fillcolor=\"gold\", color=\"gold\", label=\"" '~msg "\"]\n"
-                       "edge [ arrowhead=\"none\", style=\"dashed\"]\n" '~node "->" ~t "\n"))))
+  (let [t (rand)
+        s (str/replace (str t) "." "")]
+    `(add-to-node (str ~s "[style=\"filled\",fillcolor=\"powderblue\", color=\"powderblue\", label=\"" '~msg "\"]\n"
+                       "edge [ arrowhead=\"none\", style=\"dashed\"]\n" '~node "->" ~s "\n"))))
 
 ;输出到文件中
 (defn to-file [s]
   (spit s (str "digraph G {
-    node[fontname =\"Microsoft YaHei\",shape=record,style=\"filled\",color=\"black\",fillcolor=\".7 .3 1.0\"]\n {rank=same}\n\n  " (str/join " " @__node__) "}"))
+    node[fontname =\"Microsoft YaHei\",shape=record,style=\"filled\",color=\"black\",fillcolor=\"skyblue\"]\n {rank=same}\n\n  " (str/join " " @__node__) "}"))
   s)
 
 ;生成图片

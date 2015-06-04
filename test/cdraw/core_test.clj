@@ -13,10 +13,14 @@
 (defclz ConcreteStrategyB {:methods ["+algorithmInterface()"]})
 (defclz ConcreteStrategyC {:methods ["+algorithmInterface()" "+algorithmInterface()"]})
 
-(defrelation a Context :u Stragety)
-(defrelation aa ConcreteStrategyA :e Stragety)
-(defrelation bb ConcreteStrategyB :c Stragety)
-(defrelation cc ConcreteStrategyC :i Stragety)
+(defrelation Context :u Stragety)
+(defrelation ConcreteStrategyA :e Stragety)
+(defrelation ConcreteStrategyB :c Stragety)
+(defrelation ConcreteStrategyC :i Stragety)
 
+(defsub "Cluster2" Context)
+(defsub "Cluster1" Stragety ConcreteStrategyA ConcreteStrategyB ConcreteStrategyC)
 
-(watch (to-file "/home/ivan/t.dot") "/home/ivan/t.png")
+(label Context "hjhhhhh")
+
+(watch (to-file "E:/t.dot") "E:/t.png")
