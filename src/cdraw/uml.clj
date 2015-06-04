@@ -46,15 +46,17 @@
 ;定义子包,name必须以cluster开头
 (defmacro defsub [label & rest]
   (let [t (rand)
-        s (str/replace (str t) "." "")]
-  `(add-to-node (str "subgraph cluster" ~s " {label=\"" '~label "\"\nbgcolor=\"mintcream\";\n" ~@rest "}"))))
+        s (str/replace (str t) "." "")
+        clu (str "cluster" s)]
+  `(add-to-node (str "subgraph" ~clu " {\nlabel=\"" '~label "\"\nbgcolor=\"mintcream\";\n\n" ~@rest "}\n\n"))))
 
 ;定义label
 (defmacro label [node msg]
   (let [t (rand)
-        s (str/replace (str t) "." "")]
-    `(add-to-node (str ~s "[style=\"filled\",fillcolor=\"powderblue\", color=\"powderblue\", label=\"" '~msg "\"]\n"
-                       "edge [ arrowhead=\"none\", style=\"dashed\"]\n" '~node "->" ~s "\n"))))
+        s (str/replace (str t) "." "")
+        lb (str "label" s)]
+    `(add-to-node (str ~lb "[style=\"filled\",fillcolor=\"powderblue\", color=\"powderblue\", label=\"" '~msg "\"]\n"
+                       "edge [ arrowhead=\"none\", style=\"dashed\"]\n" '~node "->" ~lb "\n"))))
 
 ;输出到文件中
 (defn to-file [s]
