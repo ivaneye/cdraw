@@ -7,20 +7,21 @@
     (is (= 0 1))))
 
 
-(defclz Context {:fields ["+strategy:Stragety"] :methods ["+contextInterface()"]})
-(defclz Stragety {:methods ["+algorithmInterface()"]})
-(defclz ConcreteStrategyA {:methods ["+algorithmInterface()"]})
-(defclz ConcreteStrategyB {:methods ["+algorithmInterface()"]})
-(defclz ConcreteStrategyC {:methods ["+algorithmInterface()" "+algorithmInterface()"]})
+(defclass Context {:f ["+strategy:Stragety"] :m ["+contextInterface()"]})
+(defclass Stragety {:m ["+algorithmInterface()"]})
+(defclass ConcreteStrategyA {:m ["+algorithmInterface()"]})
+(defclass ConcreteStrategyB {:m ["+algorithmInterface()"]})
+(defclass ConcreteStrategyC {:m ["+algorithmInterface()" "+algorithmInterface()"]})
 
-(defrelation Context :u Stragety)
+(defrelation Context :u Stragety {:h "1..*" :t "*"})
 (defrelation ConcreteStrategyA :e Stragety)
 (defrelation ConcreteStrategyB :c Stragety)
 (defrelation ConcreteStrategyC :i Stragety)
 
-(defsub "Cluster2" Context)
-(defsub "Cluster1" Stragety ConcreteStrategyA ConcreteStrategyB ConcreteStrategyC)
+(defsub "调用" Context)
+(defsub "策略" Stragety ConcreteStrategyA ConcreteStrategyB ConcreteStrategyC)
 
-(label Context "hjhhhhh")
+(label Context "这是个
+                              Message")
 
-(watch (to-file "E:/t.dot") "E:/t.png")
+(watch (to-file "/home/ivan/t.dot") "/home/ivan/t.png")

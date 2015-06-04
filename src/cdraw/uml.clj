@@ -10,20 +10,20 @@
     (str/join "\\l" f) ""))
 
 (defn field [m]
-  (gets :fields m))
+  (gets :f m))
 
 (defn method [m]
-  (gets :methods m))
+  (gets :m m))
 
 ;定义类
-(defmacro defclz
+(defmacro defclass
   ([name] `(do (def ~name (str '~name "[label=\"{" '~name "|}\"]\n\n"))
                (add-to-node ~name)))
   ([name args] `(do (def ~name (str '~name "[label=\"{" '~name "| " (field ~args) "|" (method ~args) "}\"]\n\n"))
                     (add-to-node ~name))))
 
 (defn _msg [& r]
-  (if r (str "[headlabel=\" " (:head (first r)) "\",taillabel=\"" (:tail (first r)) "\"]") ""))
+  (if r (str "[headlabel=\" " (:h (first r)) "\",taillabel=\"" (:t (first r)) "\"]") ""))
 
 ;定义类之间的
 (defmacro defrelation [c1 type c2 & rest]
@@ -48,7 +48,7 @@
   (let [t (rand)
         s (str/replace (str t) "." "")
         clu (str "cluster" s)]
-  `(add-to-node (str "subgraph" ~clu " {\nlabel=\"" '~label "\"\nbgcolor=\"mintcream\";\n\n" ~@rest "}\n\n"))))
+  `(add-to-node (str "subgraph " ~clu " {\nlabel=\"" '~label "\"\nbgcolor=\"mintcream\";\n\n" ~@rest "}\n\n"))))
 
 ;定义label
 (defmacro label [node msg]
