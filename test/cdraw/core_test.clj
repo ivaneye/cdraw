@@ -24,4 +24,4 @@
 (label Context "这是个
                               Message")
 
-(watch (to-file "/home/ivan/t.dot") "/home/ivan/t.png")
+(watch (to-file "/home/ivan/t.dot") "/home/ivan/t.jpg")

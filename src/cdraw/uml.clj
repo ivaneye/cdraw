@@ -48,7 +48,7 @@
   (let [t (rand)
         s (str/replace (str t) "." "")
         clu (str "cluster" s)]
-  `(add-to-node (str "subgraph " ~clu " {\nlabel=\"" '~label "\"\nbgcolor=\"mintcream\";\n\n" ~@rest "}\n\n"))))
+    `(add-to-node (str "subgraph " ~clu " {\nlabel=\"" '~label "\"\nbgcolor=\"mintcream\";\n\n" ~@rest "}\n\n"))))
 
 ;定义label
 (defmacro label [node msg]
@@ -66,4 +66,5 @@
 
 ;生成图片
 (defn watch [s t]
-  (.exec (Runtime/getRuntime) (str "dot -Tpng " s " -o " t)))
+  (let [e (last (str/split t #"\."))]
+    (.exec (Runtime/getRuntime) (str "dot -T" e " " s " -o " t))))
