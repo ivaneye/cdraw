@@ -67,4 +67,4 @@
 ;生成图片
 (defn watch [s t]
   (let [e (last (str/split t #"\."))]
-    (.exec (Runtime/getRuntime) (str "dot -T" e " " s " -o " t))))
+    (.exec (Runtime/getRuntime) (str "fdp -T" e " " s " -o " t))))
