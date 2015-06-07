@@ -38,7 +38,7 @@ cdraw是对Graphviz的简单封装，请先安装Graphviz
 - 第一，二行，引入了cdraw
 - defclass定义了类，及其字段(:f)和方法(:m),效果图如下:
 
-![](/dot/cdraw/c1.png)
+![](/doc/cdraw/c1.png)
 
 <!-- more -->
 
@@ -69,7 +69,7 @@ cdraw是对Graphviz的简单封装，请先安装Graphviz
 实现 :i
 ```
 
-![](/dot/cdraw/c2.png)
+![](/doc/cdraw/c2.png)
 
 ## 添加label
 
@@ -81,7 +81,7 @@ cdraw是对Graphviz的简单封装，请先安装Graphviz
 
 - >需要转义
 
-![](/dot/cdraw/c3.png)
+![](/doc/cdraw/c3.png)
 
 ## 定义子包
 
@@ -92,7 +92,7 @@ cdraw是对Graphviz的简单封装，请先安装Graphviz
 - 第一个参数为子包名称
 - 后续为需要包含到子包中的类
 
-![](/dot/cdraw/c4.png)
+![](/doc/cdraw/c4.png)
 
 ## 生成
 
